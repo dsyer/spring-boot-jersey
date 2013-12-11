@@ -2,9 +2,8 @@ package demo;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -19,11 +18,12 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 @Path("/hello")
 public class Application {
 
+	@Value("${message:World}")
+	private String msg;
+
 	@GET
-	@Path("/{param}")
-	public Response message(@PathParam("param") String msg) {
-		String output = "Hello " + msg;
-		return Response.status(200).entity(output).build();
+	public String message() {
+		return "Hello " + msg;
 	}
 
 	@Bean

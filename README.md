@@ -1,4 +1,6 @@
-This project provides Jersey autoconfiguration for a Spring Boot application.
+This project provides Jersey autoconfiguration for a Spring Boot
+application. Feedback is more than welcome, especially in the form of
+pull requests.
 
 ## Getting Started
 
@@ -6,6 +8,30 @@ Include this project as a dependency in a Spring Boot web
 application. If you are using a snapshot version you will need to
 build it locally first, or point your Maven settings at
 "http://repo.spring.io".  
+
+Then create a Spring Boot application with `@EnableAutoConfiguration`
+and include a `@Component` of type `ResourceConfig` that sets up the
+Jersey container, e.g.
+
+```java
+@Component
+public class JerseyConfig extends ResourceConfig {
+
+	public JerseyConfig() {
+		register(Endpoint.class);
+	}
+
+}
+```
+
+The Jersey servlet will be registered and mapped to "/*" by
+default. You can change the mapping by adding `@ApplicationPath` to
+your `ResourceConfig`.
+
+You can refer to the [Jersey Sample](spring-boot-sample-jersey) for a
+detailed example.
+
+### Example Build Configuration
 
 Example `pom.xml` (excluding repository declarations):
 
@@ -63,25 +89,3 @@ Example `pom.xml` (excluding repository declarations):
 
 </project>
 ```
-
-Then create a Spring Boot application and include a `@Component` of
-type `ResourceConfig` that sets up the Jersey container, e.g.
-
-```java
-@Component
-public class JerseyConfig extends ResourceConfig {
-
-	public JerseyConfig() {
-		register(Endpoint.class);
-	}
-
-}
-```
-
-The Jersey servlet will be registered and mapped to "/*" by
-default. You can change the mapping by adding `@ApplicationPath` to
-your `ResourceConfig`.
-
-You can refer to the [Jersey Sample](spring-boot-sample-jersey) for a
-detailed example.
-

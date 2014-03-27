@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.jersey;
+package org.springframework.boot.jersey.demo;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
+import org.springframework.boot.jersey.demo.CustomServletPathTests.Application;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.RestTemplates;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -37,7 +46,7 @@ import org.springframework.web.client.RestTemplate;
 @IntegrationTest
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class ApplicationTests {
+public class CustomServletPathTests {
 	
 	@Autowired
 	private EmbeddedWebApplicationContext server;
@@ -49,6 +58,29 @@ public class ApplicationTests {
 		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:"
 				+ server.getEmbeddedServletContainer().getPort() + "/rest/hello", String.class);
 		assertEquals(HttpStatus.OK, entity.getStatusCode());
+	}
+
+	@EnableAutoConfiguration
+	@ApplicationPath("/rest")
+	@Path("/hello")
+	public static class Application extends ResourceConfig {
+
+		@Value("${message:World}")
+		private String msg;
+		
+		@GET
+		public String message() {
+			return "Hello " + msg;
+		}
+
+		public Application() {
+			register(Application.class);
+		}
+
+		public static void main(String[] args) {
+			SpringApplication.run(Application.class, args);
+		}
+
 	}
 
 }

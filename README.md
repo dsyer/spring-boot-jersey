@@ -9,8 +9,21 @@ application. If you are using a snapshot version you will need to
 build it locally first, or point your Maven settings at
 "http://repo.spring.io".  
 
-Then create a Spring Boot application with `@EnableAutoConfiguration`
-and include a `@Component` of type `ResourceConfig` that sets up the
+First create a Spring Boot application with `@EnableAutoConfiguration`:
+
+```java
+@ComponentScan
+@EnableAutoConfiguration
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+Then include a `@Component` of type `ResourceConfig` (from Jersey) that sets up the
 Jersey container, e.g.
 
 ```java
@@ -24,12 +37,32 @@ public class JerseyConfig extends ResourceConfig {
 }
 ```
 
-The Jersey servlet will be registered and mapped to "/*" by
-default. You can change the mapping by adding `@ApplicationPath` to
-your `ResourceConfig`.
+And then define your REST endpoints using Spring beans annotated with
+JAX-RS, e.g.
 
-You can refer to the [Jersey Sample](spring-boot-sample-jersey) for a
-detailed example.
+```java
+@Component
+@Path("/hello")
+public class Endpoint {
+
+	@GET
+	public String message() {
+		return "Hello";
+	}
+
+}
+```
+
+That's it! Since the `Endpoint` is a Spring `@Component` its lifecycle
+is managed by Spring and you can `@Autowired` dependencies and inject
+external configuration with `@Value`. The Jersey servlet will be
+registered and mapped to "/*" by default. You can change the mapping
+by adding `@ApplicationPath` to your `ResourceConfig`.
+
+Because it is a Spring Boot app you can run it from the main method or
+from an executable JAR.  You can refer to the
+[Jersey Sample](spring-boot-sample-jersey) for a detailed example (the
+sample is a deployable, executable WAR).
 
 ### Example Build Configuration
 

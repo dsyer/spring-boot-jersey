@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.autoconfig.jersey;
+package org.springframework.boot.jersey;
 
 import static org.junit.Assert.assertEquals;
 

@@ -14,38 +14,44 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.autoconfig.jersey;
+package org.springframework.boot.jersey.autoconfigure;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.spring.SpringComponentProvider;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.filter.RequestContextFilter;
+import org.springframework.context.annotation.Configuration;
 
-@ComponentScan
-@EnableAutoConfiguration
-public class Application extends ResourceConfig {
+/**
+ * @author Dave Syer
+ * 
+ */
+@Configuration
+@ConditionalOnClass(SpringComponentProvider.class)
+@ConditionalOnBean(ResourceConfig.class)
+@ConditionalOnWebApplication
+public class JerseyAutoConfiguration {
 
-	public Application() {
-		register(RequestContextFilter.class);
-		register(Endpoint.class);
-	}
+	@Autowired
+	private ApplicationContext context;
+
+	@Autowired
+	private ResourceConfig config;
 
 	@Bean
 	public ServletRegistrationBean jerseyServlet() {
 		ServletRegistrationBean registration = new ServletRegistrationBean(
 				new ServletContainer(), "/rest/*");
-		registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,
-				Application.class.getName());
+		registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, config
+				.getClass().getName());
 		return registration;
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
 	}
 
 }

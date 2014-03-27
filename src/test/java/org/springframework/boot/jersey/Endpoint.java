@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.autoconfig.jersey;
+package org.springframework.boot.jersey;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

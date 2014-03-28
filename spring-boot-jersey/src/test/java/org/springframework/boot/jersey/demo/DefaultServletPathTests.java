@@ -31,8 +31,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.boot.jersey.demo.DefaultServletPathTests.Application;
 import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.RestTemplates;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -50,7 +50,7 @@ public class DefaultServletPathTests {
 	@Autowired
 	private EmbeddedWebApplicationContext server;
 	
-	private RestTemplate restTemplate = RestTemplates.get();
+	private RestTemplate restTemplate = new TestRestTemplate();
 
 	@Test
 	public void contextLoads() {

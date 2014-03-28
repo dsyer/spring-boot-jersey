@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>spring-boot-jersey-parent</artifactId>
+
+	<artifactId>spring-boot-jersey-build</artifactId>
 	<packaging>pom</packaging>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-parent</artifactId>
 		<version>1.0.0.BUILD-SNAPSHOT</version>
 	</parent>
+
 	<prerequisites>
 		<maven>3.0.0</maven>
 	</prerequisites>
+
 	<properties>
 		<main.basedir>${basedir}</main.basedir>
 	</properties>
+
     <modules>
       <module>spring-boot-jersey</module>
       <module>spring-boot-sample-jersey</module>
     </modules>
+
 </project>

@@ -60,4 +60,62 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<url>http://spring.io</url>
+	<organization>
+		<name>Pivotal</name>
+		<url>http://spring.io</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>http://github.com/dsyer/spring-boot-jersey</url>
+		<connection>scm:git:git://github.com/dsyer/spring-boot-jersey.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/dsyer/spring-boot-jersey.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>dsyer</id>
+			<name>Dave Syer</name>
+			<email>dsyer@gopivotal.com</email>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<!-- see 'staging' profile for dry-run deployment settings -->
+		<downloadUrl>http://www.springsource.com/download/community
+		</downloadUrl>
+		<site>
+			<id>spring-docs</id>
+			<url>scp://static.springframework.org/var/www/domains/springframework.org/static/htdocs/spring-boot-jersey/docs/${project.version}
+			</url>
+		</site>
+		<repository>
+			<id>aws-release</id>
+			<name>Spring Release Repository</name>
+			<url>s3://maven.springframework.org/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>aws-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>s3://maven.springframework.org/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.springframework.build</groupId>
+				<artifactId>aws-maven</artifactId>
+				<version>5.0.0.RELEASE</version>
+			</extension>
+		</extensions>
+	</build>
+
 </project>

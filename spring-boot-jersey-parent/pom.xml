@@ -8,12 +8,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.0.0.BUILD-SNAPSHOT</version>
+		<version>1.0.2.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<jersey.version>2.7</jersey.version>
-		<spring-boot.version>1.0.0.BUILD-SNAPSHOT</spring-boot.version>
+		<spring-boot.version>1.0.2.BUILD-SNAPSHOT</spring-boot.version>
 		<main.basedir>${basedir}</main.basedir>
 	</properties>
 
@@ -116,6 +116,22 @@
 				<version>5.0.0.RELEASE</version>
 			</extension>
 		</extensions>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

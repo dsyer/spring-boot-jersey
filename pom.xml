@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-parent</artifactId>
-		<version>1.0.2.BUILD-SNAPSHOT</version>
+		<version>1.0.3.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<prerequisites>
@@ -21,7 +21,7 @@
 
     <modules>
       <module>spring-boot-jersey</module>
-      <module>spring-boot-sample-jersey-parent</module>
+      <module>spring-boot-jersey-parent</module>
       <module>spring-boot-sample-jersey</module>
     </modules>
 

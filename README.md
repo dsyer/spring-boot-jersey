@@ -122,3 +122,36 @@ Example `pom.xml` (excluding repository declarations):
 
 </project>
 ```
+
+## Jersey 1.x
+
+There's no explicit autoconfiguration support for Jersey 1.x and Spring Boot,
+but the sample shows it is actually pretty trivial to integrate. Example application:
+
+```
+@Configuration
+@ComponentScan
+@EnableAutoConfiguration
+@Path("/")
+public class Application {
+
+    public static void main(String[] args) {
+       new SpringApplicationBuilder(Application.class).web(true).run(args);
+    }
+    
+    @GET
+    @Produces("text/plain")
+    public String hello() {
+    	return "Hello World";
+    }
+    
+    @Bean
+    public FilterRegistrationBean jersey() {
+    	FilterRegistrationBean bean = new FilterRegistrationBean();
+    	bean.setFilter(new ServletContainer());
+    	bean.addInitParameter("com.sun.jersey.config.property.packages", "com.sun.jersey;demo");
+		return bean;
+    }
+    
+}
+```

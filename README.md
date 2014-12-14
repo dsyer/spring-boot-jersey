@@ -1,4 +1,6 @@
-This project provides Jersey autoconfiguration for a Spring Boot
+This code is now part of Spring Boot 1.2.0. Please get that if you want to use Jersey.
+
+Originaly this project provides Jersey autoconfiguration for a Spring Boot
 application. Feedback is more than welcome, especially in the form of
 pull requests.
 
